@@ -1,20 +1,24 @@
 def distance_to_river(field):
-    R, C = len(field), len(field[0])
-    def has_footprints(r, c):
-        return 0 <= r < R and 0 <= c < C and field[r][c] == 1
-    r, c = 0, 0
-    while field[r][c] != 1:
-        r += 1
-    closet = r
-    directions_row = [-1, 0, 1]
-    while c < C:
-        for dir_r in directions_row:
-            new_r, new_c = r + dir_r, c + 1
-            if has_footprints(new_r, new_c):
-                r, c = new_r, new_c
-                closet = min(closet, r)
+    row_boundary, column_boundary = len(field), len(field[0])
+
+    def has_footprints(row, column):
+        return 0 <= row < row_boundary and 0 <= column < column_boundary and field[row][column] == 1
+
+    current_row, current_column = 0, 0
+    # find start of part
+    while field[current_row][current_column] != 1:
+        current_row += 1
+    closet = current_row
+    directions = [-1, 0, 1]
+    while current_column < column_boundary:
+        for dir_r in directions:
+            next_row, next_column = current_row + dir_r, current_column + 1
+            if has_footprints(next_row, next_column):
+                current_row, current_column = next_row, next_column
+                closet = min(closet, current_row)
                 break
     return closet
+
 if __name__ == '__main__':
     """
     Time complexity: O(n + m) where n represents finding the first paw print and m represents moving around
