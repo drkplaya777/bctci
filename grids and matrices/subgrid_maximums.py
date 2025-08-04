@@ -9,7 +9,7 @@ def find_max(grid):
 
     for row in range(R, -1, -1):
         for col in range(C, -1, -1):
-            current_max = grid[row][col]
+            current_max = new_grid[row][col]
             one_row_down, one_col_down = row + 1, col
             one_row_to_right, one_col_to_right = row, col + 1
 
